@@ -23,7 +23,7 @@ export function traceTwoSum(nums: readonly number[], target: number): TwoSumStep
       value,
       complement,
       seen: snapshot(seen),
-      activeLine: 2,
+      activeLine: 3,
       message: `Read nums[${index}] = ${value}. We need ${complement}.`,
       match: null,
     });
@@ -35,7 +35,7 @@ export function traceTwoSum(nums: readonly number[], target: number): TwoSumStep
       value,
       complement,
       seen: snapshot(seen),
-      activeLine: 3,
+      activeLine: 4,
       message: `Look up complement ${complement} in the hash map.`,
       match: null,
     });
@@ -50,7 +50,7 @@ export function traceTwoSum(nums: readonly number[], target: number): TwoSumStep
         value,
         complement,
         seen: snapshot(seen),
-        activeLine: 4,
+        activeLine: 5,
         message: `Found ${complement} at index ${matchIndex}. Pair complete.`,
         match: [matchIndex, index],
       });
@@ -67,7 +67,7 @@ export function traceTwoSum(nums: readonly number[], target: number): TwoSumStep
       value,
       complement,
       seen: snapshot(seen),
-      activeLine: 6,
+      activeLine: 7,
       message: `Store ${value} → ${index} for future lookups.`,
       match: null,
     });
