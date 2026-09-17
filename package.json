@@ -1,6 +1,6 @@
 {
   "name": "leetz1nn",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@expo/metro-runtime": "~57.0.15",
+    "@react-native-async-storage/async-storage": "2.2.0",
     "expo": "~57.0.17",
     "nativewind": "4.2.7",
     "react": "19.2.3",
