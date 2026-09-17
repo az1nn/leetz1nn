@@ -2,6 +2,7 @@ import { ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { ContainerWithMostWaterLab } from '../components/ContainerWithMostWaterLab';
+import { LongestSubstringLab } from '../components/LongestSubstringLab';
 import { PatternCard } from '../components/PatternCard';
 import { TwoSumLab } from '../components/TwoSumLab';
 import { PATTERNS } from '../data/patterns';
@@ -28,6 +29,7 @@ export function PlaygroundScreen() {
           <View className="gap-8">
             <TwoSumLab />
             <ContainerWithMostWaterLab />
+            <LongestSubstringLab />
           </View>
         </View>
       </ScrollView>
