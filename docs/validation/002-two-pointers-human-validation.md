@@ -2,14 +2,14 @@
 
 Status: `PENDING_HUMAN`
 
-Target implementation SHA: `ab5e8e8d9d5ef05e7d050878c8793e263879034a`
+Target implementation SHA: `26ebb296e42f1deabbb8d7c7f7557450d2624fc7`
 Branch: `feat/002-two-pointers-human-validation`
 PR: #2, stacked on PR #1 / `feat/001-playground-foundation`
 Environment: Web required; Android/iOS optional exploratory validation
 
 ## Automated gates
 
-These gates are independent from Human Validation.
+Automated gates and Human Validation are independent.
 
 - [ ] `npm test`
 - [ ] `npm run typecheck`
@@ -18,18 +18,19 @@ These gates are independent from Human Validation.
 
 Known CI history:
 
-- Attempt 1 failed in `Setup Node` because npm caching required a lockfile that did not exist.
-- Attempt 2 reached `npm install` and exposed a real Expo Web dependency conflict: unpinned `react-dom` resolved to `19.3.0` while Expo SDK 57 uses React `19.2.3`.
-- Target `ab5e8e8` pins `react-dom` to `19.2.3`, adds SDK-57 `@expo/metro-runtime`, and imports the runtime from `App.tsx`.
+- Attempt 1 failed before install because npm caching was configured without a lockfile.
+- Attempt 2 exposed an unpinned React DOM conflict against React 19.2.3.
+- Attempt 3 installed successfully and passed Vitest + TypeScript, then Expo Doctor identified five SDK-version mismatches.
+- Target `26ebb29` aligns those packages with Expo Doctor: TypeScript `~6.0.3`, Safe Area `~5.7.0`, React types `~19.2.4`, React Native Web `^0.21.2`, and Worklets `0.10.1`.
 
-Do not convert any automated result into Human Validation evidence.
+Do not convert an automated result into Human Validation evidence.
 
 ## Prerequisites
 
-1. Check out target SHA `ab5e8e8d9d5ef05e7d050878c8793e263879034a`.
-2. Install dependencies with `npm install`.
-3. Start the web playground with `npm run web`.
-4. Use a modern Chromium/Firefox/Safari browser.
+1. Check out `26ebb296e42f1deabbb8d7c7f7557450d2624fc7`.
+2. Run `npm install`.
+3. Run `npm run web`.
+4. Open the playground in a modern browser.
 
 ## Required steps
 
@@ -67,7 +68,7 @@ Do not convert any automated result into Human Validation evidence.
 
 **Action:** Test `1`, `1, -2, 3`, and `1, nope, 3` separately.
 
-**Expected:** Each is rejected with `Use at least two comma-separated, non-negative heights.` and the previously valid visualization remains intact.
+**Expected:** Each is rejected with `Use at least two comma-separated, non-negative heights.` and the previous valid visualization remains intact.
 
 **Evidence:** Exact failing input and observation if any case fails.
 
@@ -75,9 +76,9 @@ Do not convert any automated result into Human Validation evidence.
 
 ### HV-05 — Responsive web behavior
 
-**Action:** Validate Lab 002 at approximately `390px` and at `>= 1280px`. At mobile width, scroll the height visualization and use every playback control.
+**Action:** Validate Lab 002 at approximately `390px` and at `>= 1280px`; at mobile width scroll the height visualization and use every playback control.
 
-**Expected:** No overlap/clipping; controls remain reachable; horizontal scrolling stays inside the visualization; desktop implementation panel remains readable.
+**Expected:** No overlap or clipping; controls remain reachable; horizontal scrolling stays inside the visualization; desktop implementation panel remains readable.
 
 **Evidence:** One mobile-width and one desktop-width screenshot.
 
@@ -98,7 +99,7 @@ Date: —
 Device/browser: —
 Notes: No human evidence has been supplied yet.
 
-Previous targets `e08d050` and `96dd6d9` are superseded. If functional code changes after `ab5e8e8`, mark this packet `SUPERSEDED` and regenerate it.
+Previous targets are `SUPERSEDED`. Any functional change after `26ebb296e42f1deabbb8d7c7f7557450d2624fc7` requires a new target.
 
 ## Continuation Prompt
 
@@ -107,33 +108,34 @@ Continue work on leetz1nn.
 
 Repository: az1nn/leetz1nn
 Current branch: feat/002-two-pointers-human-validation
-PR/stack: PR #2 is stacked on PR #1. PR #3 (Sliding Window) is already stacked on PR #2 and may continue independently. If a parent PR has merged, retarget the child PR to the correct base and re-run all gates.
-Frozen implementation SHA: ab5e8e8d9d5ef05e7d050878c8793e263879034a
+PR/stack: PR #2 is stacked on PR #1. PR #3 is stacked on PR #2. Continue independently of pending merges. If a parent merges, retarget the child PR and re-run gates.
+Frozen implementation SHA: 26ebb296e42f1deabbb8d7c7f7557450d2624fc7
 
 Completed:
 - Lab 001: Two Sum / Arrays & Hashing.
 - Lab 002: Container With Most Water / Two Pointers.
-- Vitest trace tests and CI test/typecheck/Expo Doctor gate.
+- Pure trace tests and quality workflow.
 - Async Human Validation skill at `.github/skills/async-human-validation/SKILL.md`.
-- Expo Web dependency correction: `react-dom@19.2.3` + `@expo/metro-runtime` for SDK 57.
-- Spec 002 and this validation packet.
+- Expo Web runtime dependencies aligned for SDK 57.
+- Expo Doctor version mismatches aligned in package.json.
+- Spec 002 and Human Validation packet.
 
 Automated gates:
-- Re-check latest PR #2 CI; prior attempts exposed and drove fixes for cache configuration and React DOM resolution.
+- Re-check latest PR #2 CI for target 26ebb29 and later doc-only commits.
+- Prior run already proved npm install, Vitest and TypeScript pass before the package-alignment change; Doctor was the remaining failing step.
 - Do not infer Human Validation from CI.
 
 Human Validation:
 - Status: PENDING_HUMAN
 - Packet: docs/validation/002-two-pointers-human-validation.md
-- Target SHA: ab5e8e8d9d5ef05e7d050878c8793e263879034a
+- Target: 26ebb296e42f1deabbb8d7c7f7557450d2624fc7
 - Pending: HV-01 through HV-05.
 
 Next boundary:
-1. Re-check PR #1/#2/#3 state, reviews and CI.
-2. Fix machine-gate failures before expanding infrastructure further.
-3. Keep Human Validation asynchronous; do not block safe work solely because manual evidence is pending.
-4. Ensure PR #3 incorporates the corrected Expo Web dependency baseline and regenerate its validation target if necessary.
-5. After three labs are stable, add catalog/navigation and local progress persistence before Lab 004 (Binary Search).
+1. Re-check PR #1/#2/#3 state, reviews and CI; fix machine-gate failures first.
+2. Keep Human Validation asynchronous and immutable by SHA.
+3. After three labs are machine-green, add catalog/navigation and local progress persistence in a new stacked branch.
+4. Then add Lab 004 — Binary Search.
 
 Constraints:
 - Never claim Human Validation passed without explicit human evidence.
