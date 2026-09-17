@@ -2,7 +2,7 @@
 
 Status: `PENDING_HUMAN`
 
-Target implementation SHA: `e08d050f466d0b38b4f4686481ce12b7d3452cea`
+Target implementation SHA: `96dd6d9224a32c883353d0937b6c5e88c64b740e`
 Branch: `feat/002-two-pointers-human-validation`
 PR: #2, stacked on PR #1 / `feat/001-playground-foundation`
 Environment: Web required; Android/iOS optional exploratory validation
@@ -16,11 +16,11 @@ These gates are independent from Human Validation.
 - [ ] `npm run doctor`
 - [ ] PR CI completed successfully
 
-The boxes above must only be updated from actual command/CI evidence. A green automated gate does not change the Human Validation status.
+CI attempt #1 failed before dependency installation because `actions/setup-node` requested npm caching without a lockfile. Commit `96dd6d9` removes that invalid cache requirement so the quality commands can actually execute. This is build-pipeline evidence, not Human Validation.
 
 ## Prerequisites
 
-1. Check out target SHA `e08d050f466d0b38b4f4686481ce12b7d3452cea`.
+1. Check out target SHA `96dd6d9224a32c883353d0937b6c5e88c64b740e`.
 2. Install dependencies with `npm install`.
 3. Start the web playground with `npm run web`.
 4. Use a modern Chromium/Firefox/Safari browser.
@@ -139,7 +139,7 @@ Date: —
 Device/browser: —
 Notes: No human evidence has been supplied yet.
 
-If any functional code changes after target SHA `e08d050f466d0b38b4f4686481ce12b7d3452cea`, mark this packet `SUPERSEDED` and generate a new packet against the new implementation SHA.
+The original packet target `e08d050f466d0b38b4f4686481ce12b7d3452cea` is superseded by `96dd6d9224a32c883353d0937b6c5e88c64b740e` after the CI execution fix. If functional code changes after the current target SHA, mark this packet `SUPERSEDED` and generate a new packet.
 
 ## Continuation Prompt
 
@@ -149,7 +149,7 @@ Continue work on leetz1nn.
 Repository: az1nn/leetz1nn
 Current branch: feat/002-two-pointers-human-validation
 PR/stack: PR #2 is stacked on PR #1 (`feat/001-playground-foundation`). Continue independently of PR #1 merge. If PR #1 has merged, retarget PR #2 to master and re-run gates before further work.
-Frozen implementation SHA: e08d050f466d0b38b4f4686481ce12b7d3452cea
+Frozen implementation SHA: 96dd6d9224a32c883353d0937b6c5e88c64b740e
 
 Completed:
 - React Native + Web algorithm playground foundation from PR #1.
@@ -158,29 +158,31 @@ Completed:
 - Pure algorithm → execution trace → useAlgorithmPlayer → visualizer architecture preserved.
 - Vitest trace tests added for Two Sum and Container With Most Water.
 - CI expanded to run tests, TypeScript and Expo Doctor.
+- CI cache configuration corrected after the first run failed before dependency installation.
 - Reusable async Human Validation skill added at `.github/skills/async-human-validation/SKILL.md`.
-- Spec 002 added.
+- Spec 002 and async validation packet added.
 
 Automated gates:
-- Check the latest PR #2 CI before relying on any previous result.
+- Re-check the latest PR #2 CI. The first attempt failed in Setup Node due to cache-without-lockfile and was corrected at `96dd6d9`.
 - Do not infer Human Validation from CI.
 
 Human Validation:
 - Status: PENDING_HUMAN
 - Packet: docs/validation/002-two-pointers-human-validation.md
-- Target SHA: e08d050f466d0b38b4f4686481ce12b7d3452cea
+- Target SHA: 96dd6d9224a32c883353d0937b6c5e88c64b740e
 - Pending items: HV-01 through HV-05 require explicit human evidence.
 
 Next boundary:
-1. Re-check PR #1/#2 state and CI.
-2. If the frozen SHA has not changed, preserve this Human Validation packet; if functional code changed, mark it SUPERSEDED and regenerate.
-3. Fix any automated or human-validation failures before adding a new algorithm.
-4. After gates are clean, start the next independent wave for Sliding Window, preferably Longest Substring Without Repeating Characters, in a new stacked branch/PR with its own spec and validation packet.
-5. Add progress persistence only after the third pattern lab establishes the navigation/progress model.
+1. Re-check PR #1/#2 state, review threads and the latest CI.
+2. Fix any automated failure discovered by the now-executing quality gate.
+3. Keep Human Validation asynchronous; do not block safe engineering work solely because HV-01..05 are pending.
+4. Start the next independent wave for Sliding Window — Longest Substring Without Repeating Characters — in a new branch stacked on PR #2, with its own spec and validation packet.
+5. Introduce progress persistence only after the third pattern lab establishes the navigation/progress model.
 
 Constraints:
 - Re-check branch, PR, review threads and CI state before making changes.
 - Do not claim Human Validation passed without explicit human evidence.
+- If functional code moves past the frozen SHA, mark this packet SUPERSEDED and regenerate it.
 - Do not merge unless the user explicitly requests it.
 - Preserve algorithm purity; React/React Native remains the visualization layer.
 - Keep new work pattern-first and learning-oriented rather than accumulating answer snippets.
