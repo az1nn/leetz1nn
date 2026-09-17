@@ -34,6 +34,14 @@ export const LABS: readonly LabDefinition[] = [
     trigger: 'Contiguous range with a validity invariant',
     complexity: 'O(n) · O(k)',
   },
+  {
+    id: 'binary-search',
+    number: '004',
+    title: 'Binary Search',
+    pattern: 'Binary Search',
+    trigger: 'Sorted input and monotonic elimination',
+    complexity: 'O(log n) · O(1)',
+  },
 ];
 
 export function getLab(labId: LabId): LabDefinition {

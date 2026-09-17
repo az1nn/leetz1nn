@@ -1,4 +1,4 @@
-export const LAB_IDS = ['two-sum', 'container-water', 'longest-substring'] as const;
+export const LAB_IDS = ['two-sum', 'container-water', 'longest-substring', 'binary-search'] as const;
 
 export type LabId = (typeof LAB_IDS)[number];
 export type MasteryLevel = 'learning' | 'practicing' | 'mastered';
@@ -35,6 +35,7 @@ export function createDefaultStudyProgress(): StudyProgressState {
       'two-sum': createLabProgress(),
       'container-water': createLabProgress(),
       'longest-substring': createLabProgress(),
+      'binary-search': createLabProgress(),
     },
   };
 }
@@ -61,16 +62,11 @@ export function selectLab(state: StudyProgressState, labId: LabId): StudyProgres
 export function cycleLabMastery(state: StudyProgressState, labId: LabId): StudyProgressState {
   const current = state.labs[labId];
   const mastery = cycleMastery(current.mastery);
-
   return {
     ...state,
     labs: {
       ...state.labs,
-      [labId]: {
-        ...current,
-        mastery,
-        completed: mastery === 'mastered' ? true : current.completed,
-      },
+      [labId]: { ...current, mastery, completed: mastery === 'mastered' ? true : current.completed },
     },
   };
 }
@@ -78,7 +74,6 @@ export function cycleLabMastery(state: StudyProgressState, labId: LabId): StudyP
 export function toggleLabComplete(state: StudyProgressState, labId: LabId): StudyProgressState {
   const current = state.labs[labId];
   const completed = !current.completed;
-
   return {
     ...state,
     labs: {
@@ -92,22 +87,13 @@ export function toggleLabComplete(state: StudyProgressState, labId: LabId): Stud
   };
 }
 
-export function recordLabReview(
-  state: StudyProgressState,
-  labId: LabId,
-  reviewedAt = new Date().toISOString(),
-): StudyProgressState {
+export function recordLabReview(state: StudyProgressState, labId: LabId, reviewedAt = new Date().toISOString()): StudyProgressState {
   const current = state.labs[labId];
-
   return {
     ...state,
     labs: {
       ...state.labs,
-      [labId]: {
-        ...current,
-        reviewCount: current.reviewCount + 1,
-        lastReviewedAt: reviewedAt,
-      },
+      [labId]: { ...current, reviewCount: current.reviewCount + 1, lastReviewedAt: reviewedAt },
     },
   };
 }
@@ -128,7 +114,6 @@ export function parseStudyProgress(raw: string | null): StudyProgressState {
     for (const labId of LAB_IDS) {
       const value = rawLabs[labId];
       if (!value || typeof value !== 'object') continue;
-
       const item = value as Partial<LabProgress>;
       labs[labId] = {
         mastery: isMasteryLevel(item.mastery) ? item.mastery : labs[labId].mastery,
