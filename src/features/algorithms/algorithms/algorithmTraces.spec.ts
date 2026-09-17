@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import { traceContainerWithMostWater } from './containerWithMostWater';
+import { traceLongestSubstring } from './longestSubstring';
 import { traceTwoSum } from './twoSum';
 
 describe('algorithm traces', () => {
@@ -25,5 +26,28 @@ describe('algorithm traces', () => {
     const steps = traceContainerWithMostWater([1, 1]);
 
     expect(steps.at(-1)?.bestArea).toBe(1);
+  });
+
+  it('finds the longest unique substring with a sliding window', () => {
+    const steps = traceLongestSubstring('abcabcbb');
+    const finalStep = steps.at(-1);
+
+    expect(finalStep?.bestLength).toBe(3);
+    expect(finalStep?.window).toBe('abc');
+  });
+
+  it('shrinks past duplicates that are still inside the active window', () => {
+    const repeatedStep = traceLongestSubstring('abba').find((step) => step.right === 2);
+
+    expect(repeatedStep?.repeated).toBe(true);
+    expect(repeatedStep?.left).toBe(2);
+    expect(traceLongestSubstring('bbbbb').at(-1)?.bestLength).toBe(1);
+  });
+
+  it('handles an empty string as a zero-length window', () => {
+    const finalStep = traceLongestSubstring('').at(-1);
+
+    expect(finalStep?.bestLength).toBe(0);
+    expect(finalStep?.window).toBe('');
   });
 });
