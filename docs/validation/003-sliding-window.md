@@ -1,152 +1,104 @@
 # Human Validation — 003 Sliding Window
 
 Status: `PENDING_HUMAN`
-
-Target implementation SHA: `efff175006be9bdd35380151b55779a528d6c68f`
+Target implementation SHA: `d0bf507cab4bb1d36b5efa8bf05fb126f02414a6`
 Branch: `feat/003-sliding-window`
-PR: #3, stacked on PR #2 / `feat/002-two-pointers-human-validation`
+PR: #3, stacked on PR #2
 Environment: Web required; Android/iOS optional exploratory validation
 
 ## Automated gates
 
 Automated gates and Human Validation are independent.
 
-- [ ] `npm test`
-- [ ] `npm run typecheck`
-- [ ] `npm run doctor`
-- [ ] PR CI completed successfully
+- [x] `npm install`
+- [x] `npm test` — algorithm trace suite passed
+- [x] `npm run typecheck`
+- [x] `npm run doctor`
+- [x] quality run #24 completed successfully
 
-This target contains the Sliding Window lab and the Expo SDK 57 package matrix aligned from Doctor feedback. Update these boxes only from actual CI/command evidence.
+This target includes Sliding Window plus the green Expo SDK 57 / TypeScript 6 baseline. CI success is not Human Validation.
 
 ## Prerequisites
 
-1. Check out `efff175006be9bdd35380151b55779a528d6c68f`.
-2. Run `npm install`.
-3. Run `npm run web`.
-4. Open the playground in a modern browser.
+1. Check out `d0bf507cab4bb1d36b5efa8bf05fb126f02414a6`.
+2. Run `npm install` and `npm run web`.
+3. Open the playground in a modern browser.
 
 ## Required steps
 
 ### HV-01 — Previous labs regression
-
-**Action:** Confirm Lab 001 and Lab 002 render before Lab 003 and execute at least one **Next** step in each.
-
-**Expected:** Both previous labs remain interactive and their state is isolated from Lab 003.
-
-**Evidence:** `PASS`/`FAIL`; screenshot only on failure.
-
+**Action:** Exercise at least one **Next** step in Labs 001 and 002 before opening Lab 003.
+**Expected:** Both older labs remain interactive and isolated from Lab 003.
+**Evidence:** `PASS`/`FAIL`; screenshot on failure.
 **Result:** `PENDING`
 
-### HV-02 — Canonical sliding-window trace
-
-**Action:** Use `abcabcbb`, press **Build trace**, and advance to the end.
-
-**Expected:** The right pointer expands one character at a time; the active window remains unique; the second `a` moves `left` past the previous `a`; final best length is `3`; first best substring is `abc`; complexity shows `O(n) time · O(k) space`.
-
-**Evidence:** One screenshot before the first duplicate and one after the left-pointer jump, or equivalent written observations.
-
+### HV-02 — Canonical window
+**Action:** Run `abcabcbb` to completion.
+**Expected:** Active window stays unique; duplicate `a` moves `left` past its prior index; final best length `3`, first best substring `abc`, `O(n)` time / `O(k)` space.
+**Evidence:** Screenshot before first duplicate and after the left-pointer jump, or equivalent observations.
 **Result:** `PENDING`
 
 ### HV-03 — Duplicate-heavy input
-
-**Action:** Use `bbbbb` and advance to completion.
-
-**Expected:** Every new `b` moves `left` forward so the active window contains one `b`; final best length is `1`.
-
+**Action:** Run `bbbbb`.
+**Expected:** Each new `b` advances `left`; final best length `1`.
 **Evidence:** `PASS`/`FAIL`.
-
 **Result:** `PENDING`
 
-### HV-04 — Non-trivial duplicate boundary
-
-**Action:** Use `abba` and advance until the second `b` at index `2` is processed.
-
-**Expected:** `left` jumps from `0` to `2`, then never moves backward.
-
-**Evidence:** Record displayed `left`, `right`, and active window at index `2`.
-
+### HV-04 — Boundary duplicate
+**Action:** Run `abba` until index `2`.
+**Expected:** `left` jumps from `0` to `2` and never moves backward.
+**Evidence:** Record displayed `left`, `right`, and active window.
 **Result:** `PENDING`
 
-### HV-05 — Empty input edge case
-
-**Action:** Clear the string, press **Build trace**, then try playback controls.
-
-**Expected:** `Empty string → answer 0`; stable terminal state; best length `0`; no invalid index UI.
-
+### HV-05 — Empty string
+**Action:** Clear the input and build the trace.
+**Expected:** Stable terminal state, answer `0`, no invalid-index UI.
 **Evidence:** `PASS`/`FAIL`.
-
 **Result:** `PENDING`
 
 ### HV-06 — Responsive layout
-
-**Action:** At approximately `390px`, test `pwwkew`, scroll through the character row, and use playback. Repeat at desktop width `>= 1280px`.
-
-**Expected:** Character boxes remain readable; scrolling stays local to the row; last-seen chips wrap cleanly; desktop implementation panel is not clipped.
-
-**Evidence:** One mobile-width and one desktop-width screenshot.
-
+**Action:** Test `pwwkew` around `390px` and at `>= 1280px`.
+**Expected:** Character row scrolls locally, last-seen chips wrap, controls remain reachable, implementation panel is not clipped.
+**Evidence:** One mobile and one desktop screenshot.
 **Result:** `PENDING`
-
-## Optional exploratory checks
-
-- Unicode/emoji input; note UTF-16 behavior without making it a Spec 003 requirement.
-- Spaces (`a b a`) and the visible `␠` marker.
-- Rapid Play/Pause/Next/Previous near completion.
 
 ## Validation result
 
 Status: `PENDING_HUMAN`
-
 Validator: —
 Date: —
-Device/browser: —
-Notes: No human evidence has been supplied yet.
+Notes: No human evidence supplied yet.
 
-Previous targets are `SUPERSEDED`. Any functional change after `efff175006be9bdd35380151b55779a528d6c68f` requires a new target.
+Earlier targets are `SUPERSEDED`. Any functional change after `d0bf507cab4bb1d36b5efa8bf05fb126f02414a6` requires regeneration.
 
 ## Continuation Prompt
 
 ```text
 Continue work on leetz1nn.
-
 Repository: az1nn/leetz1nn
-Current branch: feat/003-sliding-window
-PR/stack: PR #3 is stacked on PR #2, which is stacked on PR #1. Continue independently of pending merges and Human Validation. If a parent PR merges, retarget the child PR and re-run gates.
-Frozen implementation SHA: efff175006be9bdd35380151b55779a528d6c68f
+Branch: feat/003-sliding-window
+PR/stack: PR #3 on PR #2 on PR #1; PR #4 is already stacked above PR #3. Continue independently of merges; retarget children after parent merges and re-run gates.
+Frozen implementation SHA: d0bf507cab4bb1d36b5efa8bf05fb126f02414a6
 
 Completed:
-- Lab 001: Two Sum / Arrays & Hashing.
-- Lab 002: Container With Most Water / Two Pointers.
-- Async Human Validation skill at `.github/skills/async-human-validation/SKILL.md`.
-- Expo Web and Expo Doctor dependency baseline aligned for SDK 57.
-- Lab 003: Longest Substring Without Repeating Characters / Sliding Window.
-- Sliding Window visualization includes active window, last-seen map, duplicate-triggered `left` jumps, best window and complexity.
-- Pure trace tests cover `abcabcbb`, `bbbbb`, `abba`, and empty input.
-- Spec 003 and this Human Validation packet.
-
-Automated gates:
-- Re-check latest PR #2 and PR #3 CI before relying on results.
-- Do not infer Human Validation from CI.
+- Labs 001–003: Arrays & Hashing, Two Pointers, Sliding Window.
+- Async Human Validation skill and validation packets.
+- Expo SDK 57 / TypeScript 6 compatibility baseline.
+- Quality run #24 green: install, tests, typecheck, Expo Doctor.
 
 Human Validation:
-- PR #2 packet: docs/validation/002-two-pointers-human-validation.md — PENDING_HUMAN.
-- PR #3 packet: docs/validation/003-sliding-window.md — PENDING_HUMAN.
-- PR #3 target: efff175006be9bdd35380151b55779a528d6c68f.
-- HV-01 through HV-06 require explicit human evidence.
+- Status: PENDING_HUMAN
+- Packet: docs/validation/003-sliding-window.md
+- Pending: HV-01..HV-06.
 
 Next boundary:
-1. Re-check PR #1/#2/#3 state, review threads and CI; repair machine-gate failures first.
-2. Keep Human Validation asynchronous and immutable by target SHA.
-3. With three pattern labs established, create catalog/lab navigation instead of one long page.
-4. Add local progress persistence for completed labs, last visited lab, mastery and review state through a React Native/Web storage abstraction.
-5. Then add Lab 004 — Binary Search — in a new stacked branch/PR.
+1. Re-check PR #1–#4 state, reviews and CI.
+2. Continue from PR #4 study-navigation/progress when machine-green.
+3. Keep Human Validation asynchronous and SHA-bound.
 
 Constraints:
-- Never claim Human Validation passed without explicit human evidence.
-- Mark a packet SUPERSEDED after functional changes and regenerate it.
+- Never infer Human Validation from CI.
+- Mark packets SUPERSEDED after functional changes.
 - Do not merge unless explicitly requested.
-- Preserve `pure algorithm → trace → hook/player → visualizer`.
-- Keep React Native + Web, hooks-first patterns and NativeWind styling.
-
-Proceed independently where safe and leave the next coherent handoff with an updated continuation prompt.
+- Preserve pure algorithm → trace → hook/player → visualizer.
 ```
