@@ -2,27 +2,27 @@
 
 Status: `PENDING_HUMAN`
 
-Target implementation SHA: `3e40a7eaf8c8e219beb673b8b0b2f64f836c2c0c`
+Target implementation SHA: `efff175006be9bdd35380151b55779a528d6c68f`
 Branch: `feat/003-sliding-window`
 PR: #3, stacked on PR #2 / `feat/002-two-pointers-human-validation`
 Environment: Web required; Android/iOS optional exploratory validation
 
 ## Automated gates
 
-These gates are independent from Human Validation.
+Automated gates and Human Validation are independent.
 
 - [ ] `npm test`
 - [ ] `npm run typecheck`
 - [ ] `npm run doctor`
 - [ ] PR CI completed successfully
 
-This target carries the corrected Expo Web baseline (`react-dom@19.2.3` and SDK-57 `@expo/metro-runtime`) so it can be checked out and validated independently. Update these boxes only from actual CI/command evidence.
+This target contains the Sliding Window lab and the Expo SDK 57 package matrix aligned from Doctor feedback. Update these boxes only from actual CI/command evidence.
 
 ## Prerequisites
 
-1. Check out target SHA `3e40a7eaf8c8e219beb673b8b0b2f64f836c2c0c`.
-2. Install dependencies with `npm install`.
-3. Start the web app with `npm run web`.
+1. Check out `efff175006be9bdd35380151b55779a528d6c68f`.
+2. Run `npm install`.
+3. Run `npm run web`.
 4. Open the playground in a modern browser.
 
 ## Required steps
@@ -102,7 +102,7 @@ Date: —
 Device/browser: —
 Notes: No human evidence has been supplied yet.
 
-Target `a1c03e2` is superseded by `3e40a7e` because the standalone branch now carries the corrected Expo Web runtime baseline. Any later functional change requires another target regeneration.
+Previous targets are `SUPERSEDED`. Any functional change after `efff175006be9bdd35380151b55779a528d6c68f` requires a new target.
 
 ## Continuation Prompt
 
@@ -111,27 +111,27 @@ Continue work on leetz1nn.
 
 Repository: az1nn/leetz1nn
 Current branch: feat/003-sliding-window
-PR/stack: PR #3 is stacked on PR #2, which is stacked on PR #1. Continue independently of pending merges and Human Validation. If any parent PR merged, retarget the child PR to the correct base and re-run gates.
-Frozen implementation SHA: 3e40a7eaf8c8e219beb673b8b0b2f64f836c2c0c
+PR/stack: PR #3 is stacked on PR #2, which is stacked on PR #1. Continue independently of pending merges and Human Validation. If a parent PR merges, retarget the child PR and re-run gates.
+Frozen implementation SHA: efff175006be9bdd35380151b55779a528d6c68f
 
 Completed:
 - Lab 001: Two Sum / Arrays & Hashing.
 - Lab 002: Container With Most Water / Two Pointers.
 - Async Human Validation skill at `.github/skills/async-human-validation/SKILL.md`.
-- Expo Web dependency baseline corrected for SDK 57.
+- Expo Web and Expo Doctor dependency baseline aligned for SDK 57.
 - Lab 003: Longest Substring Without Repeating Characters / Sliding Window.
 - Sliding Window visualization includes active window, last-seen map, duplicate-triggered `left` jumps, best window and complexity.
 - Pure trace tests cover `abcabcbb`, `bbbbb`, `abba`, and empty input.
-- Spec 003 and this Human Validation packet added.
+- Spec 003 and this Human Validation packet.
 
 Automated gates:
-- Re-check the latest PR #2 and PR #3 CI before relying on results.
+- Re-check latest PR #2 and PR #3 CI before relying on results.
 - Do not infer Human Validation from CI.
 
 Human Validation:
-- PR #2: docs/validation/002-two-pointers-human-validation.md — PENDING_HUMAN.
-- PR #3: docs/validation/003-sliding-window.md — PENDING_HUMAN.
-- PR #3 target: 3e40a7eaf8c8e219beb673b8b0b2f64f836c2c0c.
+- PR #2 packet: docs/validation/002-two-pointers-human-validation.md — PENDING_HUMAN.
+- PR #3 packet: docs/validation/003-sliding-window.md — PENDING_HUMAN.
+- PR #3 target: efff175006be9bdd35380151b55779a528d6c68f.
 - HV-01 through HV-06 require explicit human evidence.
 
 Next boundary:
