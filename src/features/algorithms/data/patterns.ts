@@ -13,20 +13,20 @@ export const PATTERNS: readonly PatternDefinition[] = [
     title: 'Two Pointers',
     trigger: 'Pairs, sorted input, opposite ends',
     complexity: 'Usually O(n)',
-    status: 'next',
+    status: 'active',
   },
   {
     id: 'sliding-window',
     title: 'Sliding Window',
     trigger: 'Contiguous range with a condition',
     complexity: 'Usually O(n)',
-    status: 'planned',
+    status: 'active',
   },
   {
     id: 'binary-search',
     title: 'Binary Search',
     trigger: 'Sorted or monotonic search space',
     complexity: 'Usually O(log n)',
-    status: 'planned',
+    status: 'active',
   },
 ];
