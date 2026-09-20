@@ -85,8 +85,11 @@ describe('study progress', () => {
 
     const queue = buildReviewQueue(state, '2026-09-20T12:00:00.000Z');
     expect(queue.map((item) => item.labId)).toEqual(['two-sum', 'container-water']);
-    expect(queue[0].isDue).toBe(true);
-    expect(queue[1].isDue).toBe(false);
-    expect(queue[1].daysUntilDue).toBe(6);
+
+    const due = queue[0]!;
+    const upcoming = queue[1]!;
+    expect(due.isDue).toBe(true);
+    expect(upcoming.isDue).toBe(false);
+    expect(upcoming.daysUntilDue).toBe(6);
   });
 });
