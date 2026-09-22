@@ -4,18 +4,18 @@ REPO: az1nn/leetz1nn
 CANONICAL SIGA PROCEDURE: .github/skills/siga/SKILL.md
 CANONICAL SIGA STATE: .github/skills/siga/HANDOFF.md
 
-BASE BRANCH: feat/006-review-queue
-BASE VERIFIED HEAD: 98280b2247eccbb23a4793e731cfaccf6e596f3c
-CURRENT BRANCH: feat/007-stack-valid-parentheses
-PR: #7 — feat: add Stack valid parentheses lab
-FUNCTIONAL TARGET SHA: b293f93abee977a6dfbf351e177366c0aea59d7a
-SPEC: specs/007-stack-valid-parentheses/spec.md
-STATE: WAVE_007_MACHINE_GREEN_HV_PENDING
+BASE BRANCH: feat/007-stack-valid-parentheses
+BASE VERIFIED HEAD: 194c4162d04e6e5af9250c477ed8c835c12041d7
+CURRENT BRANCH: feat/008-prefix-sum-range-sum
+PR: #8 — feat: add Prefix Sum range query lab
+FUNCTIONAL TARGET SHA: 18138879af222553656678bd2470fecee071c9e6
+SPEC: specs/008-prefix-sum-range-sum/spec.md
+STATE: WAVE_008_MACHINE_GREEN_HV_PENDING
 SIGA CLASSIFICATION: ADVANCE
 
 ## Verified machine gates
 
-quality run #35: SUCCESS
+quality run #37: SUCCESS
 
 - install: PASS
 - Vitest: PASS
@@ -25,46 +25,48 @@ quality run #35: SUCCESS
 
 ## Delta
 
-Wave 007 adds:
+Wave 008 adds:
 
-- pure `traceValidParentheses()` Stack algorithm;
-- deterministic LIFO push/pop/mismatch trace;
-- Lab 005 input cursor and stack visualization;
-- immediate mismatch termination;
-- final empty-stack validity check;
-- Lab 005 catalog/progress/review-queue integration;
+- pure `traceRangeSum()` Prefix Sum algorithm;
+- deterministic prefix preprocessing trace;
+- inclusive `[left, right]` O(1) query subtraction;
+- array and prefix-boundary visualization;
+- guarded array/range inputs that preserve the active valid trace;
+- Lab 006 catalog/progress/review-queue integration;
 - backward-compatible v1 progress hydration;
-- SPEC-007;
-- regression tests for valid nesting, mismatch, unfinished openings and progress migration.
+- SPEC-008;
+- regression tests for prefix construction, range subtraction, single-element queries, invalid bounds and progress migration.
 
 ## Human Validation
 
 Status: PENDING_HUMAN
-Packet: docs/validation/007-stack-valid-parentheses.md
-Frozen implementation SHA: b293f93abee977a6dfbf351e177366c0aea59d7a
+Packet: docs/validation/008-prefix-sum-range-sum.md
+Frozen implementation SHA: 18138879af222553656678bd2470fecee071c9e6
 Required checks: HV-01 through HV-07.
 
 Human Validation is asynchronous and does not block safe independent engineering under the current stack policy. It must never be inferred from CI.
 
 ## Existing stack
 
-- PR #1 — playground foundation — open
-- PR #2 — Two Pointers + async Human Validation — open
-- PR #3 — Sliding Window — open
-- PR #4 — study navigation + progress — open
-- PR #5 — Binary Search — open
-- PR #6 — Review Queue — open
-- PR #7 — Stack / Valid Parentheses — open
+- PR #1 — playground foundation — open; mergeable but unstable because its original quality run remains failed
+- PR #2 — Two Pointers + async Human Validation — open; clean
+- PR #3 — Sliding Window — open; clean
+- PR #4 — study navigation + progress — open; clean
+- PR #5 — Binary Search — open; clean
+- PR #6 — Review Queue — open; clean
+- PR #7 — Stack / Valid Parentheses — open; clean
+- PR #8 — Prefix Sum / Range Sum Query — open; clean on the frozen functional target
 
-At the start of Wave 007 reconciliation, PR #1 was mergeable but `unstable` because its original quality run remained failed; PR #2–#6 were mergeable and `clean`. All parent merges, heads and CI must be re-verified before retargeting or future work.
+No review threads were open on PR #1–#8 at the Wave 008 freeze boundary.
+
+All parent merges, heads, mergeability and CI must be re-verified before retargeting or future work.
 
 ## Next boundary
 
-1. Reconcile PR #1–#7, heads, mergeability, review threads and latest CI.
-2. If PR #7 functional code changes, mark the current Human Validation packet `SUPERSEDED` and regenerate it.
-3. If Wave 007 machine gates remain green, ADVANCE to Lab 006 — Prefix Sum / Range Sum — on a new branch stacked on PR #7.
+1. Reconcile PR #1–#8, heads, mergeability, review threads and latest CI.
+2. If PR #8 functional code changes, mark the current Human Validation packet `SUPERSEDED` and regenerate it.
+3. If Wave 008 machine gates remain green, ADVANCE to the next coherent pattern lab on a new branch stacked on PR #8; preferred next slice: Lab 007 — Linked List / Reverse Linked List.
 4. Keep progress/storage schema at v1 unless a future spec explicitly requires new persisted fields.
-5. Do not merge without explicit user authority.
 
 ## Authority boundaries
 
