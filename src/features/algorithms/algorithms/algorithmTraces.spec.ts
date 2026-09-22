@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { traceBinarySearch } from './binarySearch';
 import { traceContainerWithMostWater } from './containerWithMostWater';
 import { traceLongestSubstring } from './longestSubstring';
+import { traceRangeSum } from './prefixSum';
 import { traceTwoSum } from './twoSum';
 import { traceValidParentheses } from './validParentheses';
 
@@ -76,5 +77,25 @@ describe('algorithm traces', () => {
     expect(finalStep?.phase).toBe('complete');
     expect(finalStep?.valid).toBe(false);
     expect(finalStep?.stack).toEqual(['(', '(']);
+  });
+
+  it('builds a prefix array and answers an inclusive range in O(1)', () => {
+    const finalStep = traceRangeSum([2, -1, 3, 5, -2], 1, 3).at(-1);
+    expect(finalStep?.phase).toBe('query');
+    expect(finalStep?.prefix).toEqual([0, 2, 1, 4, 9, 7]);
+    expect(finalStep?.leftPrefixIndex).toBe(1);
+    expect(finalStep?.rightPrefixIndex).toBe(4);
+    expect(finalStep?.rangeSum).toBe(7);
+  });
+
+  it('handles a single-element Prefix Sum range without special casing', () => {
+    const finalStep = traceRangeSum([4, -6, 9], 2, 2).at(-1);
+    expect(finalStep?.rangeSum).toBe(9);
+    expect(finalStep?.message).toContain('prefix[3] - prefix[2]');
+  });
+
+  it('rejects invalid range bounds in the pure Prefix Sum trace', () => {
+    expect(() => traceRangeSum([1, 2, 3], 2, 1)).toThrow(RangeError);
+    expect(() => traceRangeSum([], 0, 0)).toThrow(RangeError);
   });
 });

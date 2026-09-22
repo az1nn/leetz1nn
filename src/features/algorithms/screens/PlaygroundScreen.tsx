@@ -7,6 +7,7 @@ import { BinarySearchLab } from '../components/BinarySearchLab';
 import { ContainerWithMostWaterLab } from '../components/ContainerWithMostWaterLab';
 import { LabCard } from '../components/LabCard';
 import { LongestSubstringLab } from '../components/LongestSubstringLab';
+import { PrefixSumLab } from '../components/PrefixSumLab';
 import { TwoSumLab } from '../components/TwoSumLab';
 import { ValidParenthesesLab } from '../components/ValidParenthesesLab';
 import { getLab, LABS } from '../data/labs';
@@ -24,6 +25,7 @@ function ActiveLab({ labId }: { labId: LabId }) {
   if (labId === 'container-water') return <ContainerWithMostWaterLab />;
   if (labId === 'longest-substring') return <LongestSubstringLab />;
   if (labId === 'valid-parentheses') return <ValidParenthesesLab />;
+  if (labId === 'range-sum') return <PrefixSumLab />;
   return <BinarySearchLab />;
 }
 

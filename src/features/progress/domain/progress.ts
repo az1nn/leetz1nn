@@ -1,4 +1,4 @@
-export const LAB_IDS = ['two-sum', 'container-water', 'longest-substring', 'binary-search', 'valid-parentheses'] as const;
+export const LAB_IDS = ['two-sum', 'container-water', 'longest-substring', 'binary-search', 'valid-parentheses', 'range-sum'] as const;
 
 export type LabId = (typeof LAB_IDS)[number];
 export type MasteryLevel = 'learning' | 'practicing' | 'mastered';
@@ -52,6 +52,7 @@ export function createDefaultStudyProgress(): StudyProgressState {
       'longest-substring': createLabProgress(),
       'binary-search': createLabProgress(),
       'valid-parentheses': createLabProgress(),
+      'range-sum': createLabProgress(),
     },
   };
 }
