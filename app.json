@@ -1,0 +1,15 @@
+{
+  "expo": {
+    "name": "leetz1nn",
+    "slug": "leetz1nn",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "web": {
+      "bundler": "metro"
+    },
+    "experiments": {
+      "typedRoutes": false
+    }
+  }
+}
