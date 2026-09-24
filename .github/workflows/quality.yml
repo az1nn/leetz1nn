@@ -6,7 +6,7 @@ on:
     branches: [master]
 
 jobs:
-  typecheck:
+  quality:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -16,10 +16,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22.13.0'
-          cache: npm
 
       - name: Install dependencies
         run: npm install
+
+      - name: Test algorithm traces
+        run: npm test
 
       - name: Typecheck
         run: npm run typecheck
