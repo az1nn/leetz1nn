@@ -1,7 +1,7 @@
 import { Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import type { LabId } from '../../progress/domain/progress';
+import { buildReviewQueue, type LabId } from '../../progress/domain/progress';
 import { useStudyProgress } from '../../progress/hooks/useStudyProgress';
 import { BinarySearchLab } from '../components/BinarySearchLab';
 import { ContainerWithMostWaterLab } from '../components/ContainerWithMostWaterLab';
@@ -25,12 +25,20 @@ function ActiveLab({ labId }: { labId: LabId }) {
   return <BinarySearchLab />;
 }
 
+function queueStatus(daysUntilDue: number) {
+  if (daysUntilDue <= 0) return 'due now';
+  if (daysUntilDue === 1) return 'in 1 day';
+  return `in ${daysUntilDue} days`;
+}
+
 export function PlaygroundScreen() {
   const progress = useStudyProgress();
   const activeLabId = progress.state.lastLabId;
   const activeLab = getLab(activeLabId);
   const activeProgress = progress.state.labs[activeLabId];
   const completedCount = LABS.filter((lab) => progress.state.labs[lab.id].completed).length;
+  const reviewQueue = buildReviewQueue(progress.state);
+  const dueCount = reviewQueue.filter((item) => item.isDue).length;
 
   return (
     <SafeAreaView className="flex-1 bg-canvas">
@@ -66,6 +74,46 @@ export function PlaygroundScreen() {
                 <LabCard key={lab.id} lab={lab} progress={progress.state.labs[lab.id]} selected={lab.id === activeLabId} onPress={() => progress.select(lab.id)} />
               ))}
             </ScrollView>
+          </View>
+
+          <View className="mb-5 rounded-2xl border border-line bg-panel p-4">
+            <View className="mb-4 gap-2 md:flex-row md:items-end md:justify-between">
+              <View>
+                <Text className="font-mono text-[10px] font-bold uppercase tracking-widest text-accent">Review queue</Text>
+                <Text className="mt-1 text-xl font-bold text-ink">Spaced practice from your real study history</Text>
+                <Text className="mt-1 text-sm text-muted">{dueCount} due now · {reviewQueue.length} completed labs scheduled</Text>
+              </View>
+              <Text className="max-w-xl text-xs leading-5 text-zinc-500">
+                Learning starts at 1 day, practicing at 3 days, mastered at 7 days. Repeated reviews extend the interval up to 4×.
+              </Text>
+            </View>
+
+            {reviewQueue.length === 0 ? (
+              <View className="rounded-xl border border-dashed border-zinc-800 bg-black/30 p-4">
+                <Text className="text-sm font-semibold text-ink">Complete a lab to put it into the review queue.</Text>
+                <Text className="mt-1 text-xs leading-5 text-muted">A completed lab with no review history is due immediately, so the queue never hides unfinished study work.</Text>
+              </View>
+            ) : (
+              <View className="gap-2">
+                {reviewQueue.slice(0, 4).map((item, index) => {
+                  const lab = getLab(item.labId);
+                  return (
+                    <View key={item.labId} className="rounded-xl border border-zinc-800 bg-black/30 p-3 md:flex-row md:items-center md:justify-between md:gap-4">
+                      <View className="flex-1">
+                        <Text className="font-mono text-[10px] font-bold uppercase tracking-widest text-zinc-500">
+                          #{index + 1} · {item.isDue ? 'due' : 'upcoming'} · interval {item.intervalDays}d
+                        </Text>
+                        <Text className="mt-1 text-base font-bold text-ink">Lab {lab.number} · {lab.title}</Text>
+                        <Text className="mt-1 text-xs text-muted">{lab.pattern} · {queueStatus(item.daysUntilDue)}</Text>
+                      </View>
+                      <Pressable accessibilityRole="button" onPress={() => progress.select(item.labId)} className="mt-3 rounded-lg border border-zinc-700 px-3 py-2 active:bg-zinc-800 md:mt-0">
+                        <Text className="text-center text-xs font-bold text-ink">{item.isDue ? 'Study now' : 'Open lab'}</Text>
+                      </Pressable>
+                    </View>
+                  );
+                })}
+              </View>
+            )}
           </View>
 
           <View className="mb-5 rounded-2xl border border-line bg-black p-4 md:flex-row md:items-center md:justify-between md:gap-4">
