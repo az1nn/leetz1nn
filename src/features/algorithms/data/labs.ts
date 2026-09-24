@@ -42,6 +42,14 @@ export const LABS: readonly LabDefinition[] = [
     trigger: 'Sorted input and monotonic elimination',
     complexity: 'O(log n) · O(1)',
   },
+  {
+    id: 'valid-parentheses',
+    number: '005',
+    title: 'Valid Parentheses',
+    pattern: 'Stack',
+    trigger: 'Nested structure requiring last-opened, first-closed matching',
+    complexity: 'O(n) · O(n)',
+  },
 ];
 
 export function getLab(labId: LabId): LabDefinition {

@@ -37,7 +37,7 @@ describe('study progress', () => {
     expect(parseStudyProgress('{ definitely-not-json')).toEqual(createDefaultStudyProgress());
   });
 
-  it('upgrades older persisted progress with a default entry for a newly added lab', () => {
+  it('upgrades older persisted progress with defaults for newly added labs', () => {
     const legacy = JSON.stringify({
       version: 1,
       lastLabId: 'two-sum',
@@ -51,6 +51,15 @@ describe('study progress', () => {
     const restored = parseStudyProgress(legacy);
     expect(restored.labs['two-sum'].reviewCount).toBe(2);
     expect(restored.labs['binary-search']).toEqual({ mastery: 'learning', completed: false, reviewCount: 0, lastReviewedAt: null });
+    expect(restored.labs['valid-parentheses']).toEqual({ mastery: 'learning', completed: false, reviewCount: 0, lastReviewedAt: null });
+  });
+
+  it('allows the new Stack lab to participate in normal progress transitions', () => {
+    const selected = selectLab(createDefaultStudyProgress(), 'valid-parentheses');
+    const completed = toggleLabComplete(selected, 'valid-parentheses');
+    expect(completed.lastLabId).toBe('valid-parentheses');
+    expect(completed.labs['valid-parentheses'].completed).toBe(true);
+    expect(completed.labs['valid-parentheses'].mastery).toBe('practicing');
   });
 
   it('only queues completed labs and makes an unreviewed completed lab due immediately', () => {

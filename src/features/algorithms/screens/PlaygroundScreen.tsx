@@ -8,6 +8,7 @@ import { ContainerWithMostWaterLab } from '../components/ContainerWithMostWaterL
 import { LabCard } from '../components/LabCard';
 import { LongestSubstringLab } from '../components/LongestSubstringLab';
 import { TwoSumLab } from '../components/TwoSumLab';
+import { ValidParenthesesLab } from '../components/ValidParenthesesLab';
 import { getLab, LABS } from '../data/labs';
 
 function ActionButton({ label, onPress, accent = false }: { label: string; onPress: () => void; accent?: boolean }) {
@@ -22,13 +23,14 @@ function ActiveLab({ labId }: { labId: LabId }) {
   if (labId === 'two-sum') return <TwoSumLab />;
   if (labId === 'container-water') return <ContainerWithMostWaterLab />;
   if (labId === 'longest-substring') return <LongestSubstringLab />;
+  if (labId === 'valid-parentheses') return <ValidParenthesesLab />;
   return <BinarySearchLab />;
 }
 
 function queueStatus(daysUntilDue: number) {
   if (daysUntilDue <= 0) return 'due now';
   if (daysUntilDue === 1) return 'in 1 day';
-  return `in ${daysUntilDue} days`;
+  return 'in ' + daysUntilDue + ' days';
 }
 
 export function PlaygroundScreen() {
@@ -124,7 +126,7 @@ export function PlaygroundScreen() {
               {activeProgress.lastReviewedAt ? <Text className="mt-1 font-mono text-[10px] text-zinc-600">last review {new Date(activeProgress.lastReviewedAt).toLocaleString()}</Text> : null}
             </View>
             <View className="flex-row flex-wrap gap-2">
-              <ActionButton label={`Mastery: ${activeProgress.mastery}`} onPress={() => progress.cycleMastery(activeLabId)} />
+              <ActionButton label={'Mastery: ' + activeProgress.mastery} onPress={() => progress.cycleMastery(activeLabId)} />
               <ActionButton label={activeProgress.completed ? 'Reopen lab' : 'Mark complete'} onPress={() => progress.toggleComplete(activeLabId)} />
               <ActionButton label="Log review" accent onPress={() => progress.recordReview(activeLabId)} />
             </View>

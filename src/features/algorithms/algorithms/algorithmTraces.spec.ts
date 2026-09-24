@@ -4,6 +4,7 @@ import { traceBinarySearch } from './binarySearch';
 import { traceContainerWithMostWater } from './containerWithMostWater';
 import { traceLongestSubstring } from './longestSubstring';
 import { traceTwoSum } from './twoSum';
+import { traceValidParentheses } from './validParentheses';
 
 describe('algorithm traces', () => {
   it('finds Two Sum through the hash-map trace', () => {
@@ -52,5 +53,28 @@ describe('algorithm traces', () => {
     expect(finalStep?.decision).toBe('not-found');
     expect(finalStep?.foundIndex).toBeNull();
     expect(finalStep?.rangeSize).toBe(0);
+  });
+
+  it('accepts correctly nested parentheses and empties the stack', () => {
+    const finalStep = traceValidParentheses('({[]})').at(-1);
+    expect(finalStep?.phase).toBe('complete');
+    expect(finalStep?.valid).toBe(true);
+    expect(finalStep?.stack).toEqual([]);
+  });
+
+  it('fails immediately when a closing bracket mismatches the stack top', () => {
+    const finalStep = traceValidParentheses('([)]').at(-1);
+    expect(finalStep?.phase).toBe('mismatch');
+    expect(finalStep?.index).toBe(2);
+    expect(finalStep?.expectedOpening).toBe('(');
+    expect(finalStep?.actualTop).toBe('[');
+    expect(finalStep?.valid).toBe(false);
+  });
+
+  it('rejects input that ends with unmatched opening brackets', () => {
+    const finalStep = traceValidParentheses('(([]').at(-1);
+    expect(finalStep?.phase).toBe('complete');
+    expect(finalStep?.valid).toBe(false);
+    expect(finalStep?.stack).toEqual(['(', '(']);
   });
 });
