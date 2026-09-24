@@ -50,6 +50,14 @@ export const LABS: readonly LabDefinition[] = [
     trigger: 'Nested structure requiring last-opened, first-closed matching',
     complexity: 'O(n) · O(n)',
   },
+  {
+    id: 'range-sum',
+    number: '006',
+    title: 'Range Sum Query',
+    pattern: 'Prefix Sum',
+    trigger: 'Repeated contiguous range totals on an immutable array',
+    complexity: 'O(n) build · O(1) query · O(n) space',
+  },
 ];
 
 export function getLab(labId: LabId): LabDefinition {

@@ -52,14 +52,24 @@ describe('study progress', () => {
     expect(restored.labs['two-sum'].reviewCount).toBe(2);
     expect(restored.labs['binary-search']).toEqual({ mastery: 'learning', completed: false, reviewCount: 0, lastReviewedAt: null });
     expect(restored.labs['valid-parentheses']).toEqual({ mastery: 'learning', completed: false, reviewCount: 0, lastReviewedAt: null });
+    expect(restored.labs['range-sum']).toEqual({ mastery: 'learning', completed: false, reviewCount: 0, lastReviewedAt: null });
   });
 
-  it('allows the new Stack lab to participate in normal progress transitions', () => {
+  it('allows the Stack lab to participate in normal progress transitions', () => {
     const selected = selectLab(createDefaultStudyProgress(), 'valid-parentheses');
     const completed = toggleLabComplete(selected, 'valid-parentheses');
     expect(completed.lastLabId).toBe('valid-parentheses');
     expect(completed.labs['valid-parentheses'].completed).toBe(true);
     expect(completed.labs['valid-parentheses'].mastery).toBe('practicing');
+  });
+
+  it('allows the Prefix Sum lab to participate in normal progress transitions', () => {
+    const selected = selectLab(createDefaultStudyProgress(), 'range-sum');
+    const reviewed = recordLabReview(toggleLabComplete(selected, 'range-sum'), 'range-sum', '2026-09-22T12:00:00.000Z');
+    expect(reviewed.lastLabId).toBe('range-sum');
+    expect(reviewed.labs['range-sum'].completed).toBe(true);
+    expect(reviewed.labs['range-sum'].mastery).toBe('practicing');
+    expect(reviewed.labs['range-sum'].reviewCount).toBe(1);
   });
 
   it('only queues completed labs and makes an unreviewed completed lab due immediately', () => {
